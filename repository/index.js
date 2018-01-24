@@ -22,7 +22,9 @@ class Repository {
         this.dbName = dbName;
     }
 
-
+    clearData(){
+        return AsyncStorage.removeItem(this.dbName);
+    }
 
     getDecks(){
         return AsyncStorage.getItem(this.dbName)
@@ -55,10 +57,11 @@ class Repository {
                     reject(`Deck ${deckTitle} does not exist`)
                 else
                     this.getDecks().then(data=>{
-                        data.questions.push({
+                        const card = {
                             question,answer
-                        });
-                        this.__saveData(data)
+                        }
+                        data.questions.push(card);
+                        this.__saveData(data).then(()=>resolve(card))
                     })
             })
         })    
