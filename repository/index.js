@@ -73,6 +73,6 @@ class Repository {
 
 }
 
-export function getRepository(repo = DBNAME){
+export function getRepository(dbName = DBNAME){
     return new Repository(dbName);
 }

@@ -2,10 +2,23 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import {Ionicons} from '@expo/vector-icons'
-import MainNavigator from './components/MainNavigator'
 
+import {getRepository} from './repository'
+
+import MainNavigator from './components/MainNavigator'
+import AllDeckView from './components/AllDeckView'
 
 export default class App extends React.Component {
+
+	
+    componentDidMount(){
+
+        const repo = getRepository();
+        repo.getDecks().then(decks=>{
+			console.log(decks);
+        })
+    }
+
 	render() {
 		return (
 			<View style={styles.container}>				
@@ -17,9 +30,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
+		flex: 1		
 	},
 });

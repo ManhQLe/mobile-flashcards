@@ -5,6 +5,8 @@ const styles =  StyleSheet.create({
     AllDeckView: {
 		flex: 1,		
 		justifyContent: "flex-start",
-		backgroundColor:"#34495e"
+		alignItems:'flex-start'
 	},
 })
+
+export default styles;
