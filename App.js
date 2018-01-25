@@ -1,12 +1,13 @@
 import React from 'react';
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
 import { StyleSheet, Text, View } from 'react-native';
-
 import {Ionicons} from '@expo/vector-icons'
 
-import {getRepository} from './repository'
 
 import MainNavigator from './components/MainNavigator'
-import AllDeckView from './components/AllDeckView'
+import reducer from './reducers'
+
 
 export default class App extends React.Component {
 
@@ -21,9 +22,11 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>				
-				<MainNavigator/>
-			</View>
+			<Provider store={createStore(reducer)}>
+				<View style={styles.container}>				
+					<MainNavigator/>
+				</View>
+			</Provider>
 		);
 	}
 }

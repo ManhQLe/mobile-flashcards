@@ -2,10 +2,10 @@ export const ADD_QUESTION = 'ADD_QUESTION'
 export const IMPORT_DECKS = 'ADD_DECK'
 export const IMPORT_DATA = 'IMPORT_DATA'
 
-export function importData(data){
+export function importDecks(data){
     return {
         type:IMPORT_DATA,
-        data:data
+        data
     }
 }
 
