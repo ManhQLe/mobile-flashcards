@@ -28,7 +28,7 @@ class Repository {
 
     getDecks(){
         return AsyncStorage.getItem(this.dbName)
-        .then(results=>results?JSON.parse(results):[]);
+        .then(results=>results?JSON.parse(results):{});
     }
 
     getDeck(title){
