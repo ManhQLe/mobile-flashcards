@@ -6,10 +6,11 @@ import {TabNavigator} from 'react-navigation'
 
 import {connect} from 'react-redux'
 import {importDecks} from '../../actions'
-import {mapStateToProps} from '../utils'
+import {mapStateToProps, iconPrefix} from '../utils'
 import styles from '../../styles/MainStyle'
 import {Clouds, PeterRiver, Turquoise} from '../../styles/colors'
 import AddDeck from '../AddDeck';
+import Settings from '../Settings';
 
 function RenderDecks(props){
     const {decks} = props.screenProps.decks;
@@ -33,16 +34,23 @@ const Tabs = TabNavigator({
 		screen:RenderDecks,
 		navigationOptions:{
 			tabBarLabel:'All Decks',
-			tabBarIcon:({tintColor})=><FontAwesome name='cards' size={30} color={tintColor}/>
+			tabBarIcon:({tintColor})=><Ionicons name={`${iconPrefix}-paper`} size={30} color={tintColor}/>
 		}
 	},
 	AddEntry:{
 		screen:AddDeck,
 		navigationOptions:{
 			tabBarLabel:'Add Deck',
-			tabBarIcon:({tintColor})=><Ionicons name='ios-add' size={40} color={tintColor}/>
+			tabBarIcon:({tintColor})=><Ionicons name={`${iconPrefix}-add`} size={40} color={tintColor}/>
 		}
-	}
+    },
+    Settings:{
+        screen:Settings,
+        navigationOptions:{
+			tabBarLabel:'Settings',
+			tabBarIcon:({tintColor})=><Ionicons name={`${iconPrefix}-settings`} size={40} color={tintColor}/>
+		}
+    }
 }, 
 
 {

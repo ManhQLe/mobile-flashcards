@@ -6,10 +6,11 @@ import {Alizarin} from '../styles/colors'
 
 class Settings extends React.Component {
     render(){
-        return <View>
+        return <View style={{flex:1,alignContent:'center',justifyContent:'center' }}>
             <Button
+                onPress={()=>{}}
                 color={Alizarin}
-                title="Reset Clear Repository"
+                title="Reset Repository"
             ></Button>
         </View>
     }
