@@ -11,15 +11,6 @@ import reducer from './reducers'
 
 export default class App extends React.Component {
 
-	
-    componentDidMount(){
-
-        const repo = getRepository();
-        repo.getDecks().then(decks=>{
-			console.log(decks);
-        })
-    }
-
 	render() {
 		return (
 			<Provider store={createStore(reducer)}>
@@ -33,6 +24,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1		
+		flex: 1
 	},
 });

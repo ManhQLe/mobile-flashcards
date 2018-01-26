@@ -8,7 +8,7 @@ const MainNav = StackNavigator({
 	AllDecks: {
 		screen: AllDeckView,
 		navigationOptions:{
-			title:"All Decks"
+			title:"Decks"
 		}
 	},	
 	SingleDeck: {

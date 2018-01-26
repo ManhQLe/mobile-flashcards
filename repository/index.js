@@ -36,7 +36,7 @@ class Repository {
     }
 
     getDecks() {
-        this.getRawData().then(data => {
+        return this.getRawData().then(data => {
             const keys = Object.keys(data);
             return keys.map(key => {
                 return data[key]

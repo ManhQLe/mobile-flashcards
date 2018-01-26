@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import {connect} from 'react-redux'
+import {mapStateToProps} from './utils'
 
-export default class AddDeck extends React.Component {
+class AddDeck extends React.Component {
     render(){
-        return (
-            <View>
-            </View>
-        )
+        return <View>
+            <Text>Add Card</Text>
+        </View>
     }
 }
+
+export default connect(mapStateToProps)(AddDeck)
