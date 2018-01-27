@@ -1,18 +1,18 @@
 export const ADD_QUESTION = 'ADD_QUESTION'
-export const IMPORT_DECKS = 'ADD_DECK'
-export const IMPORT_DATA = 'IMPORT_DATA'
+export const IMPORT_DECKS = 'IMPORT_DECKS'
+export const ADD_DECK = 'ADD_DECK'
 
 export function importDecks(data){
     return {
-        type:IMPORT_DATA,
+        type:IMPORT_DECKS,
         data
     }
 }
 
-export function addDeck(title){
+export function addDeck(deck){
     return {
         type:ADD_DECK,
-        data:title
+        data:deck
     }
 }
 export function addQuestion(qData,deckId){

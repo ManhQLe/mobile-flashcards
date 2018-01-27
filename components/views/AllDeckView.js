@@ -13,18 +13,17 @@ import AddDeck from '../AddDeck';
 import Settings from '../Settings';
 
 function RenderDecks(props){
-    const {decks} = props.screenProps.decks;
-    
+
+    const {decks} = props.screenProps;
     return (
         
         <View style={styles.AllDeckView}>
-            {/* {
-                decks.map(d=>{
-                    <View style={styles.DeckCard}>
-                        <Text>d.title</Text>
+            {
+                decks.map(d=><View style={styles.DeckCard}>
+                        <Text>{d.title}</Text>
                     </View>
-                })
-            } */}
+                )
+            }
         </View>
     )
 }
@@ -82,7 +81,7 @@ class AllDeckView extends React.Component {
         }
     }
     render(){        
-        const {decks} = this.props;
+		const {decks} = this.props;
         return <Tabs screenProps={{decks}}/>
     }
 }
