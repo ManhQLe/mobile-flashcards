@@ -48,7 +48,7 @@ class Repository {
         return this.getRawData().then(data => data[id]);
     }
 
-    addDeck(title) {
+    createDeck(title) {
         return new Promise((resolve, reject) => {
             this.getRawData()
                 .then(data => {
