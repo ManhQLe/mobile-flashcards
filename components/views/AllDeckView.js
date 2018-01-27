@@ -23,11 +23,12 @@ function RenderDeck({item}){
 }
 
 function RenderDecks(props){
-
-    const {decks} = props.screenProps;
+	const {decks} = props.screenProps;
     return (    
 		<View style={styles.AllDeckView}>    
-        	<FlatList data={decks} renderItem={RenderDeck}>           
+        	<FlatList data={decks} renderItem={RenderDeck}
+			keyExtractor={(item) => item.id}
+			>           
         </FlatList>
 		</View>
     )
@@ -58,6 +59,7 @@ const Tabs = TabNavigator({
 }, 
 
 {
+	animationEnabled :true,
 	tabBarOptions:{
 		activeTintColor: Platform.OS==='ios' ? PeterRiver:Clouds,
 		style:{
@@ -75,16 +77,7 @@ const Tabs = TabNavigator({
 
 })
 
-class AllDeckView extends React.Component {      
-
-    componentWillMount(){
-        const {decks,repo,dispatch} = this.props;
-        if(decks.length == 0)
-        {
-            repo.getDecks()
-            .then(data=>dispatch(importDecks(data)))
-        }
-    }
+class AllDeckView extends React.Component {	
     render(){        
 		const {decks} = this.props;
         return <Tabs screenProps={{decks}}/>

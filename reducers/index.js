@@ -12,11 +12,11 @@ export default function reducer(state=defaultState,action){
     switch(action.type){
         case ADD_DECK:
             newState = Object.assign({},state);
-            newState.decks.push(data);
+            newState.decks = [...state.decks,data]
             return newState;
 
         case ADD_QUESTION:
-            newState = Object.assign({},state);
+            newState = Object.assign({},state);            
             const deck = newState.decks.find(data.deckId);
             deck && deck.questions.push(data.qData);
             return newState;

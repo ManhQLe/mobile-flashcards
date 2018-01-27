@@ -8,10 +8,11 @@ import {Alizarin} from '../styles/colors'
 
 class Settings extends React.Component {    
     reset(){
-        const {dispatch, repo} = this.props;
+        const {dispatch, repo,navigation} = this.props;
         repo.clearData()
         .then(()=>{
             dispatch(importDecks([]))
+            navigation.navigate("AllDecks")
         })
     }
 
@@ -31,8 +32,6 @@ class Settings extends React.Component {
     }
 
     render(){
-        
-
         return <View style={{flex:1,alignContent:'center',justifyContent:'center' }}>
             <Button
                 onPress={this.question}

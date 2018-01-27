@@ -20,7 +20,9 @@ class AddDeck extends React.Component {
         repo.createDeck(text)
         .then((deck)=>{
             dispatch(addDeck(deck))
-                        
+            Keyboard.dismiss();
+            this.setState({text:""})            
+            navigation.navigate("AllDecks")
         })
     }
 
