@@ -12,21 +12,30 @@ import {Clouds, PeterRiver, Turquoise} from '../../styles/colors'
 import AddDeck from '../AddDeck';
 import Settings from '../Settings';
 
-function RenderDeck({item}){
+function RenderDeck({deck,onNavigate}){
+	const questionLabel = `${deck.questions.length} question${deck.questions.length>1?'s':''}`	
+
 	return (
-		<TouchableOpacity key={item.id}>
+		<TouchableOpacity key={deck.id} onPress={()=>onNavigate(deck)}>
 			<View style={styles.DeckCard}>
-				<Text style={styles.DeckCardTitle}>{item.title}</Text>
+				<Text style={styles.DeckCardTitle}>{deck.title}</Text>
+				<Text style={styles.SpaceGap}></Text>
+				<Text style={styles.DeckCardSubTitle}>{questionLabel}</Text>
 			</View>
 		</TouchableOpacity>
 	)
 }
 
 function RenderDecks(props){
-	const {decks} = props.screenProps;
+	const {decks, mainNavigation} = props.screenProps;
+	
+	function goToDeck(deck){
+		mainNavigation.navigate('SingleDeck',deck)
+	}
+
     return (    
 		<View style={styles.AllDeckView}>    
-        	<FlatList data={decks} renderItem={RenderDeck}
+        	<FlatList data={decks} renderItem={({item})=> <RenderDeck deck={item} onNavigate={goToDeck}/>}
 			keyExtractor={(item) => item.id}
 			>           
         </FlatList>
@@ -79,8 +88,8 @@ const Tabs = TabNavigator({
 
 class AllDeckView extends React.Component {	
     render(){        
-		const {decks} = this.props;
-        return <Tabs screenProps={{decks}}/>
+		const {decks,navigation} = this.props;
+        return <Tabs screenProps={{decks,mainNavigation:navigation}}/>
     }
 }
 

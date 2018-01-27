@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyleSheet,Platform} from 'react-native';
 
-import {Clouds,Abestos, Silver, Carrot, Turquoise, PeterRiver, IosBlue} from './colors'
+import {Clouds,Abestos, Silver, DarkGray, Carrot, Turquoise, PeterRiver, IosBlue} from './colors'
 
 const borderRadius = Platform.OS === 'ios'?5:0
 
@@ -22,7 +22,7 @@ const styles =  StyleSheet.create({
         backgroundColor: "#FFF",
         borderRadius,
         padding: 10,
-        marginTop: 10,        
+        marginBottom: 15,        
         alignItems:'center',
         justifyContent: 'center',
         shadowRadius: 3,
@@ -36,6 +36,10 @@ const styles =  StyleSheet.create({
     DeckCardTitle:{
         color:PeterRiver,
         fontSize:30
+    },
+    DeckCardSubTitle:{
+        color:Abestos,
+        fontSize:25
     },
     Input:{
         borderRadius:3,
@@ -65,8 +69,9 @@ const styles =  StyleSheet.create({
     },
     Label:{
         fontSize:20,
-        color:Abestos
+        color:DarkGray
     },
+    
     SpaceGap:{
         height:20
     }
