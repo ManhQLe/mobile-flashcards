@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Platform, FlatList } from 'react-native';
 import {FontAwesome,Ionicons} from '@expo/vector-icons'
 
 import {TabNavigator} from 'react-navigation'
@@ -12,19 +12,24 @@ import {Clouds, PeterRiver, Turquoise} from '../../styles/colors'
 import AddDeck from '../AddDeck';
 import Settings from '../Settings';
 
+function RenderDeck({item}){
+	return (
+		<TouchableOpacity key={item.id}>
+			<View style={styles.DeckCard}>
+				<Text style={styles.DeckCardTitle}>{item.title}</Text>
+			</View>
+		</TouchableOpacity>
+	)
+}
+
 function RenderDecks(props){
 
     const {decks} = props.screenProps;
-    return (
-        
-        <View style={styles.AllDeckView}>
-            {
-                decks.map(d=><View style={styles.DeckCard}>
-                        <Text>{d.title}</Text>
-                    </View>
-                )
-            }
-        </View>
+    return (    
+		<View style={styles.AllDeckView}>    
+        	<FlatList data={decks} renderItem={RenderDeck}>           
+        </FlatList>
+		</View>
     )
 }
 
@@ -72,7 +77,7 @@ const Tabs = TabNavigator({
 
 class AllDeckView extends React.Component {      
 
-    componentDidMount(){
+    componentWillMount(){
         const {decks,repo,dispatch} = this.props;
         if(decks.length == 0)
         {

@@ -16,10 +16,11 @@ class AddDeck extends React.Component {
 
     createDeck=()=>{
         const {text} = this.state;
-        const {repo,dispatch} = this.props
+        const {repo,dispatch,navigation} = this.props
         repo.createDeck(text)
         .then((deck)=>{
             dispatch(addDeck(deck))
+                        
         })
     }
 

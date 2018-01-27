@@ -4,15 +4,14 @@ import { StyleSheet,Platform} from 'react-native';
 
 import {Clouds,Abestos, Silver, Carrot, Turquoise, PeterRiver, IosBlue} from './colors'
 
-
 const borderRadius = Platform.OS === 'ios'?5:0
 
 const styles =  StyleSheet.create({   
     AllDeckView: {
 		flex: 1,		
 		justifyContent: "flex-start",
-        alignItems:'flex-start',
-        padding:15
+        alignItems:'stretch',
+        padding:8
     },
     AddCard:{
         flex:1,
@@ -20,12 +19,11 @@ const styles =  StyleSheet.create({
         justifyContent: "center"
     },
 	DeckCard: {
-        backgroundColor: Clouds,
+        backgroundColor: "#FFF",
         borderRadius,
-        padding: 20,
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 17,        
+        padding: 10,
+        marginTop: 10,        
+        alignItems:'center',
         justifyContent: 'center',
         shadowRadius: 3,
         shadowOpacity: 0.8,
@@ -34,6 +32,10 @@ const styles =  StyleSheet.create({
             width: 0,
             height: 3
         }
+    },
+    DeckCardTitle:{
+        color:PeterRiver,
+        fontSize:30
     },
     Input:{
         borderRadius:3,
