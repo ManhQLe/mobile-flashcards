@@ -14,9 +14,7 @@ const MainNav = StackNavigator({
 	},	
 	SingleDeck: {
 		screen: DeckView,
-		navigationOptions:{
-			title:"Deck View",
-		}
+		
 	}
 })
 

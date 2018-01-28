@@ -16,7 +16,6 @@ class Entry extends React.Component {
 
     componentDidMount(){
         const {decks,repo,dispatch} = this.props;
-        debugger;
         if(decks.length == 0)
         {
             repo.getDecks()

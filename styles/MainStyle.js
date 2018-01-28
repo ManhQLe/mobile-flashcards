@@ -13,6 +13,10 @@ const styles =  StyleSheet.create({
         alignItems:'stretch',
         padding:8
     },
+    DeckView:{
+        flex:1,
+        justifyContent:'center',
+    },
     AddCard:{
         flex:1,
         padding:10,

@@ -30,7 +30,7 @@ function RenderDecks(props){
 	const {decks, mainNavigation} = props.screenProps;
 	
 	function goToDeck(deck){
-		mainNavigation.navigate('SingleDeck',deck)
+		mainNavigation.navigate('SingleDeck',{deck})
 	}
 
     return (    
