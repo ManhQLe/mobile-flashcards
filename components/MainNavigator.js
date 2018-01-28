@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation'
 
 import AllDeckView from './views/AllDeckView'
 import DeckView from './views/DeckView'
+import AddCard from './AddCard';
 
 const MainNav = StackNavigator({
 	AllDecks: {
@@ -16,6 +17,9 @@ const MainNav = StackNavigator({
 		screen: DeckView,
 		navigationOptions:{		
 		}
+	},
+	AddCard:{
+		screen:AddCard
 	}
 })
 

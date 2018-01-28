@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyleSheet,Platform} from 'react-native';
 
-import {Clouds,Abestos, Silver, DarkGray, Carrot, Turquoise, PeterRiver, IosBlue} from './colors'
+import {Clouds,Abestos, Silver, DarkGray, Carrot, Turquoise, PeterRiver, IosBlue, Emerald, SunFlower, WetAsphalt} from './colors'
 
 const isIos = Platform.OS ==='ios'
 const borderRadius = isIos?5:3
@@ -17,23 +17,23 @@ const styles =  StyleSheet.create({
     },
     DeckView:{
         flex:1,
-        justifyContent:'space-between',
+        justifyContent:'space-around',
         alignItems:'center'
     },
     DeckViewTitle:
     {
-        fontSize:45,
+        fontSize:60,
         color:isIos?Carrot: Turquoise,
     },
     DeckViewSubTitle:
     {
         color:Abestos,
-        fontSize:30
+        fontSize:40
     },
     AddCard:{
         flex:1,
-        padding:10,
-        justifyContent: "center"
+        padding:10,        
+        justifyContent: "flex-start"
     },
 	DeckCard: {
         backgroundColor: "#FFF", 
@@ -69,14 +69,21 @@ const styles =  StyleSheet.create({
     Button:{
         borderRadius,
         alignSelf: 'center',
-        borderWidth:1,
-        borderColor:isIos?PeterRiver:Turquoise,
+        alignItems:'center',
+        borderWidth:1,        
+        borderColor:'rgba(0,0,0,0)',
         backgroundColor:isIos?PeterRiver:Turquoise, 
     },
+    ButtonTakeQuiz:{
+        backgroundColor:WetAsphalt, 
+    },    
     ButtonText:{
         color:Clouds,
         padding:10,
         fontSize: 30
+    },
+    ButtonTextQuiz:{
+        color:SunFlower
     },
     Label:{
         fontSize:20,

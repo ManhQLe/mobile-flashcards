@@ -26,7 +26,7 @@ class Settings extends React.Component {
                 },
                 {
                     text:"Cancel",  onPress:()=>{}
-                }                
+                }
             ]
         )
     }

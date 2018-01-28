@@ -17,7 +17,7 @@ export default function reducer(state=defaultState,action){
 
         case ADD_QUESTION:
             newState = Object.assign({},state);            
-            const deck = newState.decks.find(data.deckId);
+            const deck = newState.decks.find(d=>d.id===data.deckId);
             deck && deck.questions.push(data.qData);
             return newState;
 

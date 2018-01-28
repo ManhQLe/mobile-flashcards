@@ -1,3 +1,5 @@
+//Information obtained from Flat UI Color - https://flatuicolors.com/
+
 export const SunFlower = "#f1c40f"
 export const Carrot = "#e67e22"
 export const Alizarin = "#e74c3c"
@@ -13,3 +15,5 @@ export const Abestos = "#7f8c8d"
 export const BelizeHole = "#2980b9"
 export const IosBlue = "#007AFF"
 export const DarkGray= "#5C5C5C"
+export const WetAsphalt = "#2c3e50"
+export const MidNightBlue= "#2c3e50"

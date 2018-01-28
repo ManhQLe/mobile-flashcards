@@ -64,14 +64,15 @@ class Repository {
         })
     }
 
-    addQuestionToDeck(deckId, question, anwser) {
+    addQuestionToDeck(deckId, question, answer) {
         return new Promise((resolve, reject) => {
-            this.getRawData(data => {
+            this.getRawData()
+            .then(data => {
                 const deck = data[deckId];
                 if (deck) {
                     const q = {
                         question,
-                        anwser,
+                        answer,
                         id: uuidv4()
                     }
                     deck.questions.push(q);

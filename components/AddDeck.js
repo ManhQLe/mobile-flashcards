@@ -34,11 +34,12 @@ class AddDeck extends React.Component {
 
                 <View style={styles.AddCard}>
                     <Text style={styles.Label}>Enter deck title</Text>
-                    <Text style={styles.SpaceGap}></Text>
+                    <Text style={styles.SpaceGap20}></Text>
                     <TextInput style={styles.Input}
                         onChangeText={t => this.setState({ text:t })}
                         value={text} />
                     <Text style={styles.SpaceGap}></Text>
+                    <Text style={styles.SpaceGap20}></Text>
                     <TouchableOpacity style={disabled?styles.ButtonDisabled:styles.Button}                     
                         disabled={disabled}
                         onPress={this.createDeck}
