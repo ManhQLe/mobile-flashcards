@@ -22,7 +22,7 @@ class Settings extends React.Component {
             "This action will clear all current data stored in this app",
             [
                 {
-                    text: "I agree", onPress: ()=>{this.reset()}
+                    text: "I Agree", onPress: ()=>{this.reset()}
                 },
                 {
                     text:"Cancel",  onPress:()=>{}
@@ -32,8 +32,8 @@ class Settings extends React.Component {
     }
 
     render(){
-        return <View style={{flex:1,alignContent:'center',justifyContent:'center' }}>
-            <Button
+        return <View style={{flex:1,alignItems:'center',justifyContent:'center' }}>
+            <Button style={{alignSelf: 'center'}}
                 onPress={this.question}
                 color={Alizarin}
                 title="Reset Repository"

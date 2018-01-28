@@ -4,7 +4,9 @@ import { StyleSheet,Platform} from 'react-native';
 
 import {Clouds,Abestos, Silver, DarkGray, Carrot, Turquoise, PeterRiver, IosBlue} from './colors'
 
-const borderRadius = Platform.OS === 'ios'?5:0
+const isIos = Platform.OS ==='ios'
+const borderRadius = isIos?5:3
+
 
 const styles =  StyleSheet.create({   
     AllDeckView: {
@@ -15,7 +17,18 @@ const styles =  StyleSheet.create({
     },
     DeckView:{
         flex:1,
-        justifyContent:'center',
+        justifyContent:'space-between',
+        alignItems:'center'
+    },
+    DeckViewTitle:
+    {
+        fontSize:45,
+        color:isIos?Carrot: Turquoise,
+    },
+    DeckViewSubTitle:
+    {
+        color:Abestos,
+        fontSize:30
     },
     AddCard:{
         flex:1,
@@ -23,19 +36,13 @@ const styles =  StyleSheet.create({
         justifyContent: "center"
     },
 	DeckCard: {
-        backgroundColor: "#FFF",
-        borderRadius,
+        backgroundColor: "#FFF", 
+        borderColor:"#FFF",
         padding: 10,
-        marginBottom: 15,        
+        borderBottomColor:Silver,
+        borderWidth:1, 
         alignItems:'center',
-        justifyContent: 'center',
-        shadowRadius: 3,
-        shadowOpacity: 0.8,
-        shadowColor: 'rgba(0,0,0,0.24)',
-        shadowOffset: {
-            width: 0,
-            height: 3
-        }
+        justifyContent: 'center',       
     },
     DeckCardTitle:{
         color:PeterRiver,
@@ -46,11 +53,11 @@ const styles =  StyleSheet.create({
         fontSize:25
     },
     Input:{
-        borderRadius:3,
+        borderRadius,
         borderColor: Silver,        
         fontSize:30,        
         padding:5,
-        borderWidth:1
+        borderWidth: isIos?1:0
     },
     ButtonDisabled:{
         borderRadius,
@@ -63,8 +70,8 @@ const styles =  StyleSheet.create({
         borderRadius,
         alignSelf: 'center',
         borderWidth:1,
-        borderColor:Platform.OS==='ios'?PeterRiver:Turquoise,
-        backgroundColor:Platform.OS==='ios'?PeterRiver:Turquoise, 
+        borderColor:isIos?PeterRiver:Turquoise,
+        backgroundColor:isIos?PeterRiver:Turquoise, 
     },
     ButtonText:{
         color:Clouds,
@@ -73,10 +80,13 @@ const styles =  StyleSheet.create({
     },
     Label:{
         fontSize:20,
-        color:DarkGray
+        color: DarkGray
     },
     
     SpaceGap:{
+        height:5
+    },
+    SpaceGap20:{
         height:20
     }
 })

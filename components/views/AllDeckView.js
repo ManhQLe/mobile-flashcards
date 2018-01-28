@@ -13,7 +13,7 @@ import AddDeck from '../AddDeck';
 import Settings from '../Settings';
 
 function RenderDeck({deck,onNavigate}){
-	const questionLabel = `${deck.questions.length} question${deck.questions.length>1?'s':''}`	
+	const questionLabel = `${deck.questions.length} card${deck.questions.length>1?'s':''}`	
 
 	return (
 		<TouchableOpacity key={deck.id} onPress={()=>onNavigate(deck)}>
