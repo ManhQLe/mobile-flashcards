@@ -29,7 +29,7 @@ class AddCard extends React.Component {
         const {deck} = navigation.state.params     
         repo.addQuestionToDeck(deck.id,question,answer)
         .then((q)=>{
-            deck.questions.push(q);
+            deck.questions= [...deck.questions,q];
             Keyboard.dismiss();
             this.setState({question:"",answer:""})        
             dispatch(importDecks([...decks]))

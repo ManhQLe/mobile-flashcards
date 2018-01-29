@@ -17,8 +17,8 @@ const styles =  StyleSheet.create({
     },
     DeckView:{
         flex:1,
-        justifyContent:'space-around',
-        alignItems:'center'
+        justifyContent:'flex-start',
+        padding:5
     },
     DeckViewTitle:
     {
@@ -57,7 +57,8 @@ const styles =  StyleSheet.create({
         borderColor: Silver,        
         fontSize:30,        
         padding:5,
-        borderWidth: isIos?1:0
+        borderWidth: isIos?1:0,
+        backgroundColor:"#FFF"
     },
     ButtonDisabled:{
         borderRadius,
@@ -95,7 +96,43 @@ const styles =  StyleSheet.create({
     },
     SpaceGap20:{
         height:20
-    }
+    },
+
+    FlatStyleButton:{
+        borderRadius,
+        alignSelf: 'center',
+        alignItems:'center',
+        borderWidth:1,        
+        borderColor:'rgba(0,0,0,0)',
+        backgroundColor:"#FFF", 
+        shadowRadius: 2,
+        shadowOpacity:0.8,
+        shadowColor:'rgba(0,0,0,0.24)',
+        shadowOffset:{
+            width:0,
+            height:2
+        }
+    },
+    FlatStyleButtonText:{
+        color:"#000",
+        padding:10,
+        fontSize: 30
+    },
+    FlatStyleButtonDisabled:{
+        borderRadius,
+        alignSelf: 'center',
+        alignItems:'center',
+        borderWidth:1,        
+        borderColor:'rgba(0,0,0,0)',
+        backgroundColor:"#FFF", 
+        shadowRadius: 1,
+        shadowOpacity:0.4,
+        shadowColor:'rgba(0,0,0,0.24)',
+        shadowOffset:{
+            width:0,
+            height:1
+        }
+    }    
 })
 
 export default styles;
