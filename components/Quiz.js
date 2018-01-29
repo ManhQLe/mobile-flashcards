@@ -1,7 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import {connect} from 'react-redux'
 import { mapStateToProps } from './utils';
+import styles from '../styles/MainStyle'
+import { Pumpkin, Clouds, Alizarin } from '../styles/colors';
+
+const NOT_STARTED = 0
+const STARTED = 1
 
 class Quiz extends React.Component {
 
@@ -14,15 +19,31 @@ class Quiz extends React.Component {
 
     constructor(props){
         super(props)
-        
+        this.state={
+            stage:NOT_STARTED,
+            qIndex:0
+        }
     }
 
     render(){
-        return (
-            <View>
-                <Text>Quiz</Text>
+        const { navigation } = this.props;
+        const { deck } = navigation.state.params;
+        const {stage} = this.state;
+        let content
+        if(stage == NOT_STARTED){
+            content = <View style={{flex:1,justifyContent:'center'}}> 
+                <TouchableHighlight  
+                    style={[styles.FlatStyleButton]}
+                    underlayColor={Clouds} onPress={() => {}}>
+                    <Text style={[styles.FlatStyleButtonText,{ color:Alizarin}]}>Start Quiz</Text>
+                </TouchableHighlight>
             </View>
-        )            
+        }
+        else{
+            content = <View></View>
+        }
+
+        return content
     }
 }
 
