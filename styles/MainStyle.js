@@ -101,7 +101,7 @@ const styles =  StyleSheet.create({
     FlatStyleButton:{
         borderRadius,
         alignSelf: 'center',
-        alignItems:'center',
+
         borderWidth:1,        
         borderColor:'rgba(0,0,0,0)',
         backgroundColor:"#FFF", 
@@ -121,7 +121,6 @@ const styles =  StyleSheet.create({
     FlatStyleButtonDisabled:{
         borderRadius,
         alignSelf: 'center',
-        alignItems:'center',
         borderWidth:1,        
         borderColor:'rgba(0,0,0,0)',
         backgroundColor:"#FFF", 
