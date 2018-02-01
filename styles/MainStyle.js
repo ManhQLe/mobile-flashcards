@@ -100,9 +100,7 @@ const styles =  StyleSheet.create({
 
     FlatStyleButton:{
         borderRadius,
-        alignSelf: 'center',
-
-        borderWidth:1,        
+        borderWidth:1,
         borderColor:'rgba(0,0,0,0)',
         backgroundColor:"#FFF", 
         shadowRadius: 2,
@@ -131,7 +129,20 @@ const styles =  StyleSheet.create({
             width:0,
             height:1
         }
-    }    
+    },
+    FlatStyleButtonAnswer:{
+        borderRadius,
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0)',
+        backgroundColor:"#FFF", 
+        shadowRadius: 1,
+        shadowOpacity:0.8,
+        shadowColor:'rgba(0,0,0,0.24)',
+        shadowOffset:{
+            width:0,
+            height:1
+        }
+    },    
 })
 
 export default styles;

@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight,FlatList } from 'react-native';
 import styles from '../styles/MainStyle'
-import {Clouds, Alizarin, Turquoise, PeterRiver, Amethyst } from '../styles/colors';
+import {Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, SunFlower, MidNightBlue, DarkGray } from '../styles/colors';
 
 const MAX_ANSWER = 4
 const COLOR_COL = [Alizarin, Turquoise, PeterRiver, Amethyst]
+const START_CHAR = 65
 
 function sampleAnswer(answer,times){
     let x = ""
@@ -48,16 +49,20 @@ export default function QuizAnswer(props) {
             <FlatList data={A}
                 renderItem={({ item }) =>{ 
                     return <TouchableHighlight 
-                    style={[styles.FlatStyleButton]} 
+                    style={[styles.FlatStyleButtonAnswer,{marginBottom:5}]} 
                     underlayColor={Clouds}
                     onPress={()=>onAnswerPicked(item)}>
-                        <Text style={[styles.FlatStyleButtonText,{ color:COLOR_COL[item.i%COLOR_COL.length] }]}
-                        >{item.a}</Text>
+                        <View style={ {flex:1, flexDirection:'row'}}>
+                            <Text style={[styles.FlatStyleButtonText,{backgroundColor:"#F0F0F0", color:DarkGray}]}>
+                                {String.fromCharCode(item.i + START_CHAR)}
+                            </Text>
+                            <Text style={[styles.FlatStyleButtonText,{ color:COLOR_COL[item.i%COLOR_COL.length] }]}
+                            >{item.a}</Text>
+                        </View>
                     </TouchableHighlight>
                 }}
                 keyExtractor={(item,i) => i}>                
                 </FlatList>
-
         }
         </View>
     ) 

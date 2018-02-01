@@ -63,7 +63,7 @@ class Quiz extends React.Component {
         const {stage, qIndex} = this.state;
         let content
         if(stage == NOT_STARTED){
-            content = <View style={{flex:1,justifyContent:'center'}}> 
+            content = <View style={{flex:1,justifyContent:'center', alignItems:'center'}}> 
                 <TouchableHighlight  
                     style={[styles.FlatStyleButton]}
                     underlayColor={Clouds} onPress={this.startTest}>
