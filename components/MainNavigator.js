@@ -5,7 +5,7 @@ import { StackNavigator } from 'react-navigation'
 import AllDeckView from './views/AllDeckView'
 import DeckView from './views/DeckView'
 import AddCard from './AddCard';
-import Quiz from './Quiz'
+import QuizView from './views/QuizView';
 
 const MainNav = StackNavigator({
 	AllDecks: {
@@ -21,7 +21,7 @@ const MainNav = StackNavigator({
 		screen:AddCard
 	},
 	Quiz:{
-		screen: Quiz
+		screen: QuizView
 	}
 })
 

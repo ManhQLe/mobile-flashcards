@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import {connect} from 'react-redux'
-import { mapStateToProps } from './utils';
-import styles from '../styles/MainStyle'
-import { Pumpkin, Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, Carrot, Pomegranate } from '../styles/colors';
+import { mapStateToProps } from '../utils';
+import styles from '../../styles/MainStyle'
+import { Pumpkin, Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, Carrot, Pomegranate } 
+from '../../styles/colors';
 
 const NOT_STARTED = 0
 const STARTED = 1
