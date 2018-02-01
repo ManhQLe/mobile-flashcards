@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import {connect} from 'react-redux'
 import { mapStateToProps } from './utils';
 import styles from '../styles/MainStyle'
-import { Pumpkin, Clouds, Alizarin } from '../styles/colors';
+import { Pumpkin, Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, Carrot, Pomegranate } from '../styles/colors';
 
 const NOT_STARTED = 0
 const STARTED = 1
+const MAX_ANSWER = 4
+const COLOR_COL = [Alizarin,Turquoise, PeterRiver, Amethyst, Carrot, Pumpkin, Pomegranate]
 
 function sampleAnswer(answer,times){
     let x = ""
@@ -70,12 +72,17 @@ class Quiz extends React.Component {
         }
         else{
   
-            const A =  generateAnswers("Manh Le is Awesome",4)
+            const A =  generateAnswers("Manh Le is Awesome",MAX_ANSWER)
  
-            content = <View>
-                {
-                    A.map(x=>{
-                        return <Text>{x}</Text>
+            content = <View style={{flex:1,justifyContent:'center'}}>
+                {                            
+                    A.map((a,i)=>{
+                        return <TouchableHighlight 
+                            style={[styles.FlatStyleButton]} 
+                            underlayColor={Clouds}
+                            onPress={()=>{}}>
+                             <Text style={[styles.FlatStyleButtonText,{ color:COLOR_COL[i%COLOR_COL.length] }]}>{a}</Text>
+                        </TouchableHighlight>
                     })
                 }
             </View>
