@@ -8,6 +8,29 @@ import { Pumpkin, Clouds, Alizarin } from '../styles/colors';
 const NOT_STARTED = 0
 const STARTED = 1
 
+function sampleAnswer(answer,times){
+    let x = ""
+    for(let i = 0;i<times;i++){
+        x+=answer.charAt(Math.random()*answer.length);
+    }
+    return x;
+}
+
+function generateAnswers(correctAnwser,n){    
+    let aidx = Math.floor(Math.random()*n)
+    const answers = [];
+    for(let i = 0;i<n;i++){
+        if(i!==aidx){
+            let maxLen = Math.floor(Math.random() * correctAnwser.length) + 3;
+            answers.push(sampleAnswer(correctAnwser,maxLen))
+        }
+        else
+            answers.push(correctAnwser);
+    }
+
+    return answers;    
+}
+
 class Quiz extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
@@ -25,6 +48,12 @@ class Quiz extends React.Component {
         }
     }
 
+    startTest=()=>{
+        this.setState({
+            stage:STARTED
+        })
+    }
+
     render(){
         const { navigation } = this.props;
         const { deck } = navigation.state.params;
@@ -34,13 +63,22 @@ class Quiz extends React.Component {
             content = <View style={{flex:1,justifyContent:'center'}}> 
                 <TouchableHighlight  
                     style={[styles.FlatStyleButton]}
-                    underlayColor={Clouds} onPress={() => {}}>
+                    underlayColor={Clouds} onPress={this.startTest}>
                     <Text style={[styles.FlatStyleButtonText,{ color:Alizarin}]}>Start Quiz</Text>
                 </TouchableHighlight>
             </View>
         }
         else{
-            content = <View></View>
+  
+            const A =  generateAnswers("Manh Le is Awesome",4)
+ 
+            content = <View>
+                {
+                    A.map(x=>{
+                        return <Text>{x}</Text>
+                    })
+                }
+            </View>
         }
 
         return content
