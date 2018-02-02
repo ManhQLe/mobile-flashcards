@@ -1,15 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Platform } from 'react-native';
 import {connect} from 'react-redux'
 import { mapStateToProps } from '../utils';
 import styles from '../../styles/MainStyle'
-import {  Clouds, Alizarin, Turquoise, PeterRiver, Amethyst} from '../../styles/colors';
+import {  Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, Silver, Carrot} from '../../styles/colors';
 import QuizAnswer from '../QuizAnswer'
 
 const NOT_STARTED = 0
 const STARTED = 1
 const MAX_ANSWER = 4
 const COLOR_COL = [Alizarin,Turquoise, PeterRiver, Amethyst]
+
+const style= StyleSheet.create({
+    TextHeader:{
+        fontSize:30
+    }
+})
 
 function sampleAnswer(answer,times){
     let x = ""
@@ -73,7 +79,21 @@ class Quiz extends React.Component {
         }
         else{               
             const cCard = deck.questions[qIndex]
-            content = <QuizAnswer answer={cCard.answer}/>
+            content = (
+            <View style={{flex:1,justifyContent: 'space-around'}}>
+                <View style={{flex:1,alignItems:'flex-start',flexDirection:'row'}}>
+                    <Text style={[style.TextHeader,{color:Carrot}]}>{qIndex+1}</Text>
+                    <Text style={[style.TextHeader,{color:Silver}]}> / </Text>
+                    <Text style={[style.TextHeader,{color:Platform.OS==='ios'?PeterRiver: Turquoise}]}>{deck.questions.length}</Text>
+                </View>
+                <View style={{flex: 1,flexGrow:2,alignItems:'center'}}>            
+                    <Text style={{fontSize:40,color:Alizarin}}>{cCard.question}</Text>
+                </View>
+                <View style={{flex: 1,flexGrow: 3.5, alignItems:'stretch', padding:30}}>
+                    <QuizAnswer answer={cCard.answer}/>
+                </View>
+            </View>
+            )
         }
 
         return content

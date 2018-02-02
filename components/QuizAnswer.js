@@ -30,41 +30,35 @@ function generateAnswers(correctAnwser,n){
         answers.push({i,a:aa})
     }
 
-   
-
     return answers;    
 }
 
-function RenderAnswer(props){
-    return 
-}
 
 export default function QuizAnswer(props) {
     const {onAnswerPicked=()=>{}, answer}  = props
     const A = generateAnswers(answer,MAX_ANSWER);
     
     return(
-        <View style={{flex:1,alignItems:'flex-start',borderWidth:1}}>
-        {
-            <FlatList data={A}
-                renderItem={({ item }) =>{ 
-                    return <TouchableHighlight 
-                    style={[styles.FlatStyleButtonAnswer,{marginBottom:5}]} 
-                    underlayColor={Clouds}
-                    onPress={()=>onAnswerPicked(item)}>
-                        <View style={ {flex:1, flexDirection:'row'}}>
-                            <Text style={[styles.FlatStyleButtonText,{backgroundColor:"#F0F0F0", color:DarkGray}]}>
-                                {String.fromCharCode(item.i + START_CHAR)}
-                            </Text>
-                            <Text style={[styles.FlatStyleButtonText,{ color:COLOR_COL[item.i%COLOR_COL.length] }]}
-                            >{item.a}</Text>
-                        </View>
-                    </TouchableHighlight>
-                }}
-                keyExtractor={(item,i) => i}>                
-                </FlatList>
-        }
-        </View>
+       
+      
+        <FlatList data={A}
+            renderItem={({ item }) =>{ 
+                return <TouchableHighlight 
+                style={[styles.FlatStyleButtonAnswer,{marginBottom:5}]} 
+                underlayColor={Clouds}
+                onPress={()=>onAnswerPicked(item)}>
+                    <View style={ {flex:1, flexDirection:'row'}}>
+                        <Text style={[styles.FlatStyleButtonText,{backgroundColor:"#F0F0F0", color:DarkGray}]}>
+                            {String.fromCharCode(item.i + START_CHAR)}
+                        </Text>
+                        <Text style={[styles.FlatStyleButtonText,{ color:COLOR_COL[item.i%COLOR_COL.length] }]}
+                        >{item.a}</Text>
+                    </View>
+                </TouchableHighlight>
+            }}
+            keyExtractor={(item,i) => i}>                
+        </FlatList>
+    
     ) 
 }
 
