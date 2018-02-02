@@ -65,6 +65,7 @@ class Quiz extends React.Component {
         })
     }
 
+
     render() {
         const { navigation } = this.props;
         const { deck } = navigation.state.params;
@@ -81,13 +82,15 @@ class Quiz extends React.Component {
         }
         else {
             const cCard = deck.questions[qIndex]
+            const {flip} = this.state;
+
             content = (
                 <View style={{ flex: 1, padding: 10 }}>
-                    <View style={[mainStyle.QuizCard, {transform: [{ rotateY: '180deg' }] }]}>
-                        <Text>Test</Text>
-                    </View>
                     <View style={{ height: "100%" }}>
-                        <View style={[mainStyle.QuizCard]}>
+                        <View style={[mainStyle.QuizCard, { transform: [{ rotateY: (flip+180)+'deg' }] }]}>
+                            <Text>Test</Text>
+                        </View>
+                        <View style={[mainStyle.QuizCard,  { transform: [{ rotateY: flip+ 'deg' }] }]}>
                             <View style={{ flex: 1, alignItems: 'flex-start', flexDirection: 'row' }}>
                                 <Text style={[style.TextHeader, { color: Carrot }]}>{qIndex + 1}</Text>
                                 <Text style={[style.TextHeader, { color: Silver }]}> / </Text>
@@ -99,7 +102,7 @@ class Quiz extends React.Component {
                             <View style={{ flex: 1, flexGrow: 3.5, alignItems: 'stretch', padding: 30 }}>
                                 <QuizAnswer answer={cCard.answer} />
                             </View>
-                        </View>                        
+                        </View>
                     </View>
                 </View>
             )
