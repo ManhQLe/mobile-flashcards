@@ -38,13 +38,11 @@ export default function QuizAnswer(props) {
     const {onAnswerPicked=()=>{}, answer}  = props
     const A = generateAnswers(answer,MAX_ANSWER);
     
-    return(
-       
-      
-        <FlatList data={A}
+    return(    
+        <FlatList data={A} contentContainerStyle={{padding:5}}
             renderItem={({ item }) =>{ 
                 return <TouchableHighlight 
-                style={[styles.FlatStyleButtonAnswer,{marginBottom:5}]} 
+                style={[styles.FlatStyleButtonAnswer,{marginBottom:8}]} 
                 underlayColor={Clouds}
                 onPress={()=>onAnswerPicked(item)}>
                     <View style={ {flex:1, flexDirection:'row'}}>

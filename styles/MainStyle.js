@@ -135,14 +135,35 @@ const styles =  StyleSheet.create({
         borderWidth:1,
         borderColor:'rgba(0,0,0,0)',
         backgroundColor:"#FFF", 
-        shadowRadius: 1,
+        shadowRadius: 2,
         shadowOpacity:0.8,
         shadowColor:'rgba(0,0,0,0.24)',
         shadowOffset:{
             width:0,
             height:1
         }
-    },    
+    },  
+    QuizCard:{
+        padding:5,
+        flex:1,
+        justifyContent: 'space-around',
+        borderRadius,
+        backgroundColor:"#FFF",
+        position:'absolute',
+        height:"100%",
+        width:"100%",        
+
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0)',
+        backfaceVisibility: 'hidden',
+        shadowRadius: 1.5,
+        shadowOpacity:0.8,
+        shadowColor:'rgba(0,0,0,0.24)',
+        shadowOffset:{
+            width:0,
+            height:1.5
+        }
+    }  
 })
 
 export default styles;
