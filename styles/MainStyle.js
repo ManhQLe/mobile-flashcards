@@ -146,7 +146,7 @@ const styles =  StyleSheet.create({
     QuizAnswerButtonText:{
         color:"#000",
         padding:10,
-        fontSize: 25
+        fontSize: 20
     },
     QuizCard:{
         padding:5,
@@ -154,7 +154,6 @@ const styles =  StyleSheet.create({
         justifyContent: 'space-around',
         borderRadius,
         backgroundColor:"#FFF",
-        position:'absolute',
         height:"100%",
         width:"100%",        
         borderWidth:1,

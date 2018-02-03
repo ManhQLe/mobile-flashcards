@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight,FlatList } from 'react-native';
 import styles from '../styles/MainStyle'
-import {Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, SunFlower, MidNightBlue, DarkGray } from '../styles/colors';
+import {Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, SunFlower, MidNightBlue, DarkGray, Silver } from '../styles/colors';
 
 const MAX_ANSWER = 4
 const COLOR_COL = [Alizarin, Turquoise, PeterRiver, Amethyst]
@@ -46,11 +46,12 @@ export default function QuizAnswer(props) {
                 underlayColor={Clouds}
                 onPress={()=>onAnswerPicked(item)}>
                     <View style={ {flex:1, flexDirection:'row'}}>
-                        <Text style={[styles.QuizAnswerButtonText,{backgroundColor:"#F0F0F0", color:DarkGray}]}>
+                        <Text style={[styles.QuizAnswerButtonText,
+                            {backgroundColor:COLOR_COL[item.i%COLOR_COL.length],color:"white"}]}>
                             {String.fromCharCode(item.i + START_CHAR)}
                         </Text>
                         <Text style={[styles.QuizAnswerButtonText,
-                            {flex:1,flexWrap:'wrap', color:COLOR_COL[item.i%COLOR_COL.length] }]}
+                            {color:DarkGray,flex:1,flexWrap:'wrap' }]}
                         >{item.a}</Text>
                     </View>
                 </TouchableHighlight>
