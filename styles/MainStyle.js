@@ -114,7 +114,7 @@ const styles =  StyleSheet.create({
     FlatStyleButtonText:{
         color:"#000",
         padding:10,
-        fontSize: 30
+        fontSize: 30,
     },
     FlatStyleButtonDisabled:{
         borderRadius,
@@ -143,6 +143,11 @@ const styles =  StyleSheet.create({
             height:1
         }
     },  
+    QuizAnswerButtonText:{
+        color:"#000",
+        padding:10,
+        fontSize: 25
+    },
     QuizCard:{
         padding:5,
         flex:1,
@@ -152,7 +157,6 @@ const styles =  StyleSheet.create({
         position:'absolute',
         height:"100%",
         width:"100%",        
-
         borderWidth:1,
         borderColor:'rgba(0,0,0,0)',
         backfaceVisibility: 'hidden',

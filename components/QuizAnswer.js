@@ -46,10 +46,11 @@ export default function QuizAnswer(props) {
                 underlayColor={Clouds}
                 onPress={()=>onAnswerPicked(item)}>
                     <View style={ {flex:1, flexDirection:'row'}}>
-                        <Text style={[styles.FlatStyleButtonText,{backgroundColor:"#F0F0F0", color:DarkGray}]}>
+                        <Text style={[styles.QuizAnswerButtonText,{backgroundColor:"#F0F0F0", color:DarkGray}]}>
                             {String.fromCharCode(item.i + START_CHAR)}
                         </Text>
-                        <Text style={[styles.FlatStyleButtonText,{ color:COLOR_COL[item.i%COLOR_COL.length] }]}
+                        <Text style={[styles.QuizAnswerButtonText,
+                            {flex:1,flexWrap:'wrap', color:COLOR_COL[item.i%COLOR_COL.length] }]}
                         >{item.a}</Text>
                     </View>
                 </TouchableHighlight>

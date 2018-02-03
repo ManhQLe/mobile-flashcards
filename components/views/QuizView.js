@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Platform, Animated } from 'react-native';
+import { StyleSheet, Text, View,TouchableHighlight, Platform, Animated,Button } from 'react-native';
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../utils';
 import styles from '../../styles/MainStyle'
@@ -55,8 +55,22 @@ class Quiz extends React.Component {
         this.state = {
             stage: NOT_STARTED,
             qIndex: 0,
-            flip: 0
-        }
+           
+        }        
+        this.deg = 0;
+        this.flip = new Animated.Value(0)
+        this.flip.addListener(({v})=>{
+            this.deg  = v;
+        })
+
+        this.interFront = this.flip.interpolate({
+            inputRange:[0,180],
+            outputRange:['0deg','180deg']
+        })
+        this.interBack = this.flip.interpolate({
+            inputRange:[0,180],
+            outputRange:['180deg','360deg']
+        })
     }
 
     startTest = () => {
@@ -65,6 +79,15 @@ class Quiz extends React.Component {
         })
     }
 
+    flipCard = ()=>{    
+        if(this.deg >= 180)    
+            Animated.spring(this.flip,{toValue:0,friction:8,tension:10,}).start();
+        else
+        {
+            Animated.spring(this.flip,{toValue:180,friction:8,tension:10,}).start();
+            debugger;
+        }
+    }
 
     render() {
         const { navigation } = this.props;
@@ -82,27 +105,48 @@ class Quiz extends React.Component {
         }
         else {
             const cCard = deck.questions[qIndex]
-            const {flip} = this.state;
-
+            const animFrontStyle = {
+                transform:[{rotateY:this.interFront}]
+            }
+            const animBackStyle = {
+                transform:[{rotateY:this.interBack}]
+            }
+            
             content = (
                 <View style={{ flex: 1, padding: 10 }}>
                     <View style={{ height: "100%" }}>
-                        <View style={[mainStyle.QuizCard, { transform: [{ rotateY: (flip+180)+'deg' }] }]}>
-                            <Text>Test</Text>
-                        </View>
-                        <View style={[mainStyle.QuizCard,  { transform: [{ rotateY: flip+ 'deg' }] }]}>
+                        <Animated.View style={[mainStyle.QuizCard, animBackStyle]}>
+                            <View>
+                                <Text>{cCard.answer}</Text>
+                            </View>
+                            <View style={{flex:1,flexGrow:1, alignItems:'center',justifyContent:'center'}}>
+                                <Button style={{alignSelf: 'center'}}
+                                onPress={this.flipCard}
+                                color={Alizarin}
+                                title="Front"
+                                ></Button>
+                            </View>
+                        </Animated.View>
+                        <Animated.View style={[mainStyle.QuizCard, animFrontStyle]}>
                             <View style={{ flex: 1, alignItems: 'flex-start', flexDirection: 'row' }}>
                                 <Text style={[style.TextHeader, { color: Carrot }]}>{qIndex + 1}</Text>
                                 <Text style={[style.TextHeader, { color: Silver }]}> / </Text>
                                 <Text style={[style.TextHeader, { color: Platform.OS === 'ios' ? PeterRiver : Turquoise }]}>{deck.questions.length}</Text>
                             </View>
                             <View style={{ flex: 1, flexGrow: 2, alignItems: 'center' }}>
-                                <Text style={{ fontSize: 40, color: Alizarin }}>{cCard.question}</Text>
+                                <Text style={{flex:1,flexWrap:'wrap', fontSize: 35, color: Alizarin }}>{cCard.question}</Text>
                             </View>
-                            <View style={{ flex: 1, flexGrow: 3.5, alignItems: 'stretch', padding: 30 }}>
+                            <View style={{borderWidth:1 ,borderColor:"#F0F0F0", flex: 1, flexGrow: 3.5, alignItems: 'stretch', padding: 5 }}>
                                 <QuizAnswer answer={cCard.answer} />
                             </View>
-                        </View>
+                            <View style={{flex:1,flexGrow:1, alignItems:'center',justifyContent:'center'}}>
+                                    <Button style={{alignSelf: 'center'}}
+                                    onPress={this.flipCard}
+                                    color={Alizarin}
+                                    title="Back"
+                                ></Button>
+                            </View>
+                        </Animated.View>
                     </View>
                 </View>
             )
