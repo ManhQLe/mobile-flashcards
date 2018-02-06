@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableHighlight, Platform, Animated, Button 
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../utils';
 import styles from '../../styles/MainStyle'
-import { Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, Silver, Carrot } from '../../styles/colors';
+import { Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, Silver, Carrot,Emerald } from '../../styles/colors';
 import QuizAnswer from '../QuizAnswer'
 import mainStyle from '../../styles/MainStyle'
 
@@ -21,7 +21,21 @@ const style = StyleSheet.create({
     },
     FlipBntCnt: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingTop: 5 },
     QuestionStyle: { flex: 1, flexWrap: 'wrap', fontSize: 30, color: Alizarin },
-    AnswerStyle: {justifyContent:'center', fontSize: 30, color: platformColor }
+    AnswerStyle: {justifyContent:'center', fontSize: 30, color: platformColor },
+    ResultContainer:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    ResultBox:{        
+        borderWidth:3,
+        flex:1,
+        alignSelf:'center'
+    },
+    ResultText:{
+        fontSize:25,
+        fontWeight:'bold'    
+    }
 })
 
 function sampleAnswer(answer, times) {
@@ -116,6 +130,10 @@ class Quiz extends React.Component {
         })
     }
 
+    retakeQuiz = ()=>{
+
+    }
+
     render() {
         const { navigation } = this.props;
         const { deck } = navigation.state.params;
@@ -177,8 +195,30 @@ class Quiz extends React.Component {
                 )
                 break;
             case FINISHED:
+                const {cheated,correctAnswer} = this.state;                
+                let result;
+                if(cheated)
+                    result=<View style={[style.ResultBox,{borderColor:Alizarin}]}><Text style={[style.ResultText,{borderColor:Alizarin}]}>Busted on the act :D</Text></View>
+                else
+                {
+                    const p = correctAnswer/deck.questions.length
+                    if(p>=0.8)
+                        result=<View style={[style.ResultBox,{borderColor:Emerald}]}><Text style={[style.ResultText,{borderColor:Emerald}]}>Passed</Text></View>
+                    else
+                        result=<View style={[style.ResultBox,{borderColor:Alizarin}]}><Text style={[style.ResultText,{borderColor:Emerald}]}>Failed</Text></View>
+                }
+
                 content = (
-                    <View><Text>Done</Text></View>
+                    <View style={style.ResultContainer}>                        
+                        {result}
+                        <View>
+                            <Button style={{ alignSelf: 'center' }}
+                                onPress={this.retakeQuiz}
+                                color={platformColor}
+                                title="Flip Card"
+                            ></Button>
+                        </View>
+                    </View>
                 )
         }
 
