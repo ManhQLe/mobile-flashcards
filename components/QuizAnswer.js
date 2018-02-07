@@ -44,7 +44,7 @@ export default function QuizAnswer(props) {
                 return <TouchableHighlight 
                 style={[styles.FlatStyleButtonAnswer,{marginBottom:8}]} 
                 underlayColor={Clouds}
-                onPress={()=>onAnswerPicked(item)}>
+                onPress={()=>onAnswerPicked(item.a)}>
                     <View style={ {flex:1, flexDirection:'row'}}>
                         <Text style={[styles.QuizAnswerButtonText,
                             {backgroundColor:COLOR_COL[item.i%COLOR_COL.length],color:"white"}]}>

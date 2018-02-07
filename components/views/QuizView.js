@@ -29,8 +29,10 @@ const style = StyleSheet.create({
     },
     ResultBox:{        
         borderWidth:3,
-        flex:1,
-        alignSelf:'center'
+
+        padding:5,
+        alignSelf:'center',
+        justifyContent:'center'
     },
     ResultText:{
         fontSize:25,
@@ -121,8 +123,7 @@ class Quiz extends React.Component {
         const cCard = deck.questions[qIndex]
         qIndex++;
         stage = qIndex === deck.questions.length? FINISHED:stage
-
-        correctAnswer += a === cCard.answer ? 1 : 0
+        correctAnswer += ( a.localeCompare(cCard.answer)==0) ? 1 : 0
         this.setState({
             qIndex,
             correctAnswer,
@@ -131,7 +132,11 @@ class Quiz extends React.Component {
     }
 
     retakeQuiz = ()=>{
-
+        this.setState({
+            qIndex:0,
+            correctAnswer:0,
+            stage:STARTED
+        })
     }
 
     render() {
@@ -202,20 +207,23 @@ class Quiz extends React.Component {
                 else
                 {
                     const p = correctAnswer/deck.questions.length
+                    const pr = Math.round(p*100)
                     if(p>=0.8)
-                        result=<View style={[style.ResultBox,{borderColor:Emerald}]}><Text style={[style.ResultText,{borderColor:Emerald}]}>Passed</Text></View>
+                        result=<View style={[style.ResultBox,{borderColor:Emerald}]}><Text style={[style.ResultText,{borderColor:Emerald}]}>{pr}% Passed</Text></View>
                     else
-                        result=<View style={[style.ResultBox,{borderColor:Alizarin}]}><Text style={[style.ResultText,{borderColor:Emerald}]}>Failed</Text></View>
+                        result=<View style={[style.ResultBox,{borderColor:Alizarin}]}><Text style={[style.ResultText,{borderColor:Emerald}]}>{pr}% Failed</Text></View>
                 }
 
                 content = (
-                    <View style={style.ResultContainer}>                        
-                        {result}
+                    <View style={style.ResultContainer}>
+                        <View>                        
+                            {result}
+                        </View>
                         <View>
                             <Button style={{ alignSelf: 'center' }}
                                 onPress={this.retakeQuiz}
                                 color={platformColor}
-                                title="Flip Card"
+                                title="Retake Quiz"
                             ></Button>
                         </View>
                     </View>
