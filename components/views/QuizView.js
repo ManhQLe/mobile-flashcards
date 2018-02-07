@@ -83,7 +83,7 @@ class Quiz extends React.Component {
             qIndex: 0,
             correctAnswer: 0,
             cheated: false,
-            quizTime:'-1'
+            quizTime:0
         }
 
     }
@@ -128,8 +128,7 @@ class Quiz extends React.Component {
         let { qIndex, correctAnswer, stage } = this.state;
         const cCard = deck.questions[qIndex]
         qIndex++;
-        stage = qIndex === deck.questions.length ? FINISHED : stage
-
+        stage = qIndex === deck.questions.length ? FINISHED : stage        
         correctAnswer += (a === cCard.answer) ? 1 : 0
         this.setState({
             qIndex,
@@ -142,7 +141,7 @@ class Quiz extends React.Component {
         this.setState({
             qIndex: 0,
             correctAnswer: 0,
-            stage: STARTED
+            stage: NOT_STARTED
         })
     }
 
@@ -170,16 +169,16 @@ class Quiz extends React.Component {
                         <Picker style={{width:160}}
                             selectedValue={this.state.quizTime}
                             onValueChange={(itemValue, itemIndex) =>{this.setState({quizTime:itemValue}) } }>
-                            <Picker.Item label="Infinite" value="-1" />
-                            <Picker.Item label="5 seconds" value="5" />
-                            <Picker.Item label="10 seconds" value="10" />                        
+                            <Picker.Item label="Infinite" value={0} />
+                            <Picker.Item label="5 seconds" value={5} />
+                            <Picker.Item label="10 seconds" value={10} />                        
                         </Picker>
                     </View>
                 </View>
                 break;
 
             case STARTED:
-                if(quizTime!=="-1"){
+                if(quizTime){
                     this.timer = setTimeout(()=>this.answerPicked(null),parseInt(quizTime)*1000);
                 }
 
@@ -204,7 +203,6 @@ class Quiz extends React.Component {
                                     <Text style={[style.TextHeader, { color: Carrot }]}>{qIndex + 1}</Text>
                                     <Text style={[style.TextHeader, { color: Silver }]}> / </Text>
                                     <Text style={[style.TextHeader, { color: platformColor }]}>{deck.questions.length}</Text>
-                                    <Timer totalTime={quizTime=="-1"?0:parseInt(quizTime)}/>
                                 </View>
                                 <View style={{ flex: 1, flexGrow: 2, alignItems: 'center' }}>
                                     <Text style={style.QuestionStyle}>{cCard.question}</Text>

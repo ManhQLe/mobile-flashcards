@@ -1,20 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight,FlatList } from 'react-native';
+import { Alizarin } from '../styles/colors';
 
 function elapseTime(total,fx){
     let elapsed = 0
-    const granularity = 16.6666
+    const granularity = 1000
     const call =()=>{
-        requestAnimationFrame(()=>{
+        setTimeout(()=>{
             elapsed+=granularity
-            fx(elapsed)
-            elapsed<total&& call();                
-        });
+            fx(elapsed)            
+            if(elapsed< total)  call();
+        },granularity);
     }
     call();
 }
 
-class Timer extends React.Component{
+export default class Timer extends React.Component{
     constructor(props){
         super(props)
         this.state={
@@ -24,13 +25,16 @@ class Timer extends React.Component{
 
     componentDidMount(){
         const {totalTime = 0} = this.props
-        totalTime && elapseTime(totalTime,(x)=>{
+        const {onElapse =()=>{}} = this.props;
+        totalTime && elapseTime(totalTime* 1000,(x)=>{            
             this.setState({elapse:x})
+            onElapse(x);
         })
     }
     
     render(){
         const {elapse} =  this.state
-        return <Text>{elapse}</Text>
+        const {totalTime} = this.props;
+        return <Text style={{color:Alizarin}}>{totalTime - elapse/1000}</Text>
     }
 }
