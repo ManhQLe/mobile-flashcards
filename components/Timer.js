@@ -1,15 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight,FlatList } from 'react-native';
 
-function elapse(total,fx){
+function elapseTime(total,fx){
     let elapsed = 0
-    const granularity = 100
+    const granularity = 16.6666
     const call =()=>{
-        setTimeout(()=>{
+        requestAnimationFrame(()=>{
             elapsed+=granularity
             fx(elapsed)
             elapsed<total&& call();                
-        },granularity);
+        });
     }
     call();
 }
@@ -23,10 +23,14 @@ class Timer extends React.Component{
     }
 
     componentDidMount(){
-        
+        const {totalTime = 0} = this.props
+        totalTime && elapseTime(totalTime,(x)=>{
+            this.setState({elapse:x})
+        })
     }
     
     render(){
-
+        const {elapse} =  this.state
+        return <Text>{elapse}</Text>
     }
 }

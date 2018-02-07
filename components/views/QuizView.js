@@ -204,6 +204,7 @@ class Quiz extends React.Component {
                                     <Text style={[style.TextHeader, { color: Carrot }]}>{qIndex + 1}</Text>
                                     <Text style={[style.TextHeader, { color: Silver }]}> / </Text>
                                     <Text style={[style.TextHeader, { color: platformColor }]}>{deck.questions.length}</Text>
+                                    <Timer totalTime={quizTime=="-1"?0:parseInt(quizTime)}/>
                                 </View>
                                 <View style={{ flex: 1, flexGrow: 2, alignItems: 'center' }}>
                                     <Text style={style.QuestionStyle}>{cCard.question}</Text>
