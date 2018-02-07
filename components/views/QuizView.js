@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Platform, Animated, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Platform, Animated, Button, Picker, PickerIOS } from 'react-native';
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../utils';
 import styles from '../../styles/MainStyle'
-import { Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, Silver, Carrot,Emerald } from '../../styles/colors';
+import { Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, Silver, Carrot, Emerald } from '../../styles/colors';
 import QuizAnswer from '../QuizAnswer'
 import mainStyle from '../../styles/MainStyle'
 
@@ -21,22 +21,26 @@ const style = StyleSheet.create({
     },
     FlipBntCnt: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingTop: 5 },
     QuestionStyle: { flex: 1, flexWrap: 'wrap', fontSize: 30, color: Alizarin },
-    AnswerStyle: {justifyContent:'center', fontSize: 30, color: platformColor },
-    ResultContainer:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center'
+    AnswerStyle: { justifyContent: 'center', fontSize: 30, color: platformColor },
+    ResultContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    ResultBox:{        
-        borderWidth:3,
+    ResultBox: {
+        borderWidth: 3,
 
-        padding:5,
-        alignSelf:'center',
-        justifyContent:'center'
+        padding: 5,
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
-    ResultText:{
-        fontSize:25,
-        fontWeight:'bold'    
+    ResultText: {
+        fontSize: 25,
+        fontWeight: 'bold'
+    },
+    StartQuizContainer:{
+        padding:10,
+        justifyContent:'center'
     }
 })
 
@@ -78,7 +82,8 @@ class Quiz extends React.Component {
             stage: NOT_STARTED,
             qIndex: 0,
             correctAnswer: 0,
-            cheated:false
+            cheated: false,
+            quizTime:'-1'
         }
 
     }
@@ -89,7 +94,7 @@ class Quiz extends React.Component {
         this.flip.addListener(({ value }) => {
             this.deg = value;
         })
-
+        this.timer = null
         this.interFront = this.flip.interpolate({
             inputRange: [0, 180],
             outputRange: ['0deg', '180deg']
@@ -112,18 +117,20 @@ class Quiz extends React.Component {
         else {
             Animated.spring(this.flip, { toValue: 180, friction: 8, tension: 10, }).start();
         }
-        
-        this.setState({cheated:true})
+
+        this.setState({ cheated: true })
     }
 
     answerPicked = (a) => {
+        clearTimeout(this.timer)
         const { navigation } = this.props;
         const { deck } = navigation.state.params;
-        let { qIndex, correctAnswer,stage } = this.state;
+        let { qIndex, correctAnswer, stage } = this.state;
         const cCard = deck.questions[qIndex]
         qIndex++;
-        stage = qIndex === deck.questions.length? FINISHED:stage
-        correctAnswer += ( a.localeCompare(cCard.answer)==0) ? 1 : 0
+        stage = qIndex === deck.questions.length ? FINISHED : stage
+
+        correctAnswer += (a === cCard.answer) ? 1 : 0
         this.setState({
             qIndex,
             correctAnswer,
@@ -131,32 +138,51 @@ class Quiz extends React.Component {
         })
     }
 
-    retakeQuiz = ()=>{
+    retakeQuiz = () => {
         this.setState({
-            qIndex:0,
-            correctAnswer:0,
-            stage:STARTED
+            qIndex: 0,
+            correctAnswer: 0,
+            stage: STARTED
         })
     }
 
     render() {
         const { navigation } = this.props;
         const { deck } = navigation.state.params;
-        const { stage, qIndex } = this.state;
+        const { stage, qIndex, quizTime } = this.state;
         let content
 
         switch (stage) {
             case NOT_STARTED:
                 content = <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableHighlight
-                        style={[styles.FlatStyleButton]}
-                        underlayColor={Clouds} onPress={this.startTest}>
-                        <Text style={[styles.FlatStyleButtonText, { color: Alizarin }]}>Start Quiz</Text>
-                    </TouchableHighlight>
+                    <View style={style.StartQuizContainer}>
+                        <TouchableHighlight
+                            style={[styles.FlatStyleButton]}
+                            underlayColor={Clouds} onPress={this.startTest}>
+                            <Text style={[styles.FlatStyleButtonText, { color: Alizarin }]}>Start Quiz</Text>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={[style.StartQuizContainer,{alignItems:'center'}]}>
+                        <Text style={{fontSize:20}}>Challenges</Text>
+                        <Text style={{color:platformColor}}>Seconds per quiz</Text>
+                    </View>
+                    <View style={style.StartQuizContainer}>
+                        <Picker style={{width:160}}
+                            selectedValue={this.state.quizTime}
+                            onValueChange={(itemValue, itemIndex) =>{this.setState({quizTime:itemValue}) } }>
+                            <Picker.Item label="Infinite" value="-1" />
+                            <Picker.Item label="5 seconds" value="5" />
+                            <Picker.Item label="10 seconds" value="10" />                        
+                        </Picker>
+                    </View>
                 </View>
                 break;
 
             case STARTED:
+                if(quizTime!=="-1"){
+                    this.timer = setTimeout(()=>this.answerPicked(null),parseInt(quizTime)*1000);
+                }
+
                 const cCard = deck.questions[qIndex]
                 const animFrontStyle = {
                     transform: [{ rotateY: this.interFront }]
@@ -169,7 +195,7 @@ class Quiz extends React.Component {
                     <View style={[{ flex: 1, padding: 5 }]}>
                         <View style={{ height: "90%" }}>
                             <Animated.View style={[mainStyle.QuizCard, animBackStyle, { position: 'absolute' }]}>
-                                <View style={{ flex: 1,flexGrow:9, alignItems: 'center', justifyContent: 'center' }}>
+                                <View style={{ flex: 1, flexGrow: 9, alignItems: 'center', justifyContent: 'center' }}>
                                     <Text style={style.AnswerStyle}>{cCard.answer}</Text>
                                 </View>
                             </Animated.View>
@@ -200,23 +226,22 @@ class Quiz extends React.Component {
                 )
                 break;
             case FINISHED:
-                const {cheated,correctAnswer} = this.state;                
+                const { cheated, correctAnswer } = this.state;
                 let result;
-                if(cheated)
-                    result=<View style={[style.ResultBox,{borderColor:Alizarin}]}><Text style={[style.ResultText,{borderColor:Alizarin}]}>Busted on the act :D</Text></View>
-                else
-                {
-                    const p = correctAnswer/deck.questions.length
-                    const pr = Math.round(p*100)
-                    if(p>=0.8)
-                        result=<View style={[style.ResultBox,{borderColor:Emerald}]}><Text style={[style.ResultText,{borderColor:Emerald}]}>{pr}% Passed</Text></View>
+                if (cheated)
+                    result = <View style={[style.ResultBox, { borderColor: Alizarin }]}><Text style={[style.ResultText, { borderColor: Alizarin }]}>Busted on the act :D</Text></View>
+                else {
+                    const p = correctAnswer / deck.questions.length
+                    const pr = Math.round(p * 100)
+                    if (p >= 0.8)
+                        result = <View style={[style.ResultBox, { borderColor: Emerald }]}><Text style={[style.ResultText, { borderColor: Emerald }]}>{pr}% Passed</Text></View>
                     else
-                        result=<View style={[style.ResultBox,{borderColor:Alizarin}]}><Text style={[style.ResultText,{borderColor:Emerald}]}>{pr}% Failed</Text></View>
+                        result = <View style={[style.ResultBox, { borderColor: Alizarin }]}><Text style={[style.ResultText, { borderColor: Emerald }]}>{pr}% Failed</Text></View>
                 }
 
                 content = (
                     <View style={style.ResultContainer}>
-                        <View>                        
+                        <View>
                             {result}
                         </View>
                         <View>
