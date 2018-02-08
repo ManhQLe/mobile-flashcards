@@ -13,7 +13,8 @@ const FINISHED = 2
 const MAX_ANSWER = 4
 const COLOR_COL = [Alizarin, Turquoise, PeterRiver, Amethyst]
 
-const platformColor = Platform.OS === 'ios' ? PeterRiver : Turquoise
+const isIOS = Platform.OS === 'ios' 
+const platformColor = isIOS ? PeterRiver : Turquoise
 
 const style = StyleSheet.create({
     TextHeader: {
@@ -82,27 +83,36 @@ class Quiz extends React.Component {
             stage: NOT_STARTED,
             qIndex: 0,
             correctAnswer: 0,
-            cheated: false,
             quizTime:0
         }
-
+        
     }
 
-    componentWillMount() {
+    initValues(){
+        this.cheated = false;
         this.deg = 0;
         this.flip = new Animated.Value(0)
         this.flip.addListener(({ value }) => {
             this.deg = value;
         })
         this.timer = null
-        this.interFront = this.flip.interpolate({
+        const frontValue = {
             inputRange: [0, 180],
-            outputRange: ['0deg', '180deg']
-        })
-        this.interBack = this.flip.interpolate({
+        }
+        frontValue.outputRange = isIOS?['0deg', '180deg']:[1,0]
+
+        const backValue = {
             inputRange: [0, 180],
-            outputRange: ['180deg', '360deg']
-        })
+        }
+        backValue.outputRange = isIOS?['180deg', '360deg']:[0,1]
+
+        this.interFront = this.flip.interpolate(frontValue)
+        this.interBack = this.flip.interpolate(backValue)
+
+    }
+
+    componentWillMount() {
+        this.initValues();
     }
 
     startTest = () => {
@@ -118,7 +128,7 @@ class Quiz extends React.Component {
             Animated.spring(this.flip, { toValue: 180, friction: 8, tension: 10, }).start();
         }
 
-        this.setState({ cheated: true })
+        this.cheated = true;
     }
 
     answerPicked = (a) => {
@@ -138,6 +148,9 @@ class Quiz extends React.Component {
     }
 
     retakeQuiz = () => {
+        clearTimeout(this.timer);
+        this.timer = null;
+        this.initValues();        
         this.setState({
             qIndex: 0,
             correctAnswer: 0,
@@ -183,12 +196,15 @@ class Quiz extends React.Component {
                 }
 
                 const cCard = deck.questions[qIndex]
-                const animFrontStyle = {
-                    transform: [{ rotateY: this.interFront }]
-                }
-                const animBackStyle = {
-                    transform: [{ rotateY: this.interBack }]
-                }
+                const animFrontStyle = { }
+                debugger;
+                isIOS && (animFrontStyle.transform =  [{ rotateY: this.interFront }])
+                !isIOS && (animFrontStyle.opacity =  this.interFront)
+               
+                const animBackStyle = {}
+                isIOS && (animBackStyle.transform = [{ rotateY: this.interBack }])
+                !isIOS && (animBackStyle.opacity = this.interBack)
+                    
 
                 content = (
                     <View style={[{ flex: 1, padding: 5 }]}>
@@ -225,7 +241,8 @@ class Quiz extends React.Component {
                 )
                 break;
             case FINISHED:
-                const { cheated, correctAnswer } = this.state;
+                const { correctAnswer } = this.state;
+                const {cheated} = this;
                 let result;
                 if (cheated)
                     result = <View style={[style.ResultBox, { borderColor: Alizarin }]}><Text style={[style.ResultText, { borderColor: Alizarin }]}>Busted on the act :D</Text></View>
@@ -243,8 +260,8 @@ class Quiz extends React.Component {
                         <View>
                             {result}
                         </View>
-                        <View>
-                            <Button style={{ alignSelf: 'center' }}
+                        <View style={{paddingTop:10}}>
+                            <Button style={{ alignSelf: 'center'}}
                                 onPress={this.retakeQuiz}
                                 color={platformColor}
                                 title="Retake Quiz"
