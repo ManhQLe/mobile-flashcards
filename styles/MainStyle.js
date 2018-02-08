@@ -33,7 +33,8 @@ const styles =  StyleSheet.create({
     AddCard:{
         flex:1,
         padding:10,        
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
+        alignItems:'center'
     },
 	DeckCard: {
         backgroundColor: "#FFF", 
@@ -57,6 +58,7 @@ const styles =  StyleSheet.create({
         borderColor: Silver,        
         fontSize:30,        
         padding:5,
+        width:"100%",
         borderWidth: isIos?1:0,
         backgroundColor:"#FFF"
     },

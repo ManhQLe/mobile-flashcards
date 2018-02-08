@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { StyleSheet, Text, View, TouchableHighlight,FlatList } from 'react-native';
 import styles from '../styles/MainStyle'
 import {Clouds, Alizarin, Turquoise, PeterRiver, Amethyst, SunFlower, MidNightBlue, DarkGray, Silver } from '../styles/colors';
@@ -60,6 +61,12 @@ export default function QuizAnswer(props) {
         </FlatList>
     
     ) 
+    
+}
+
+QuizAnswer.propTypes ={
+    onAnswerPicked: PropTypes.func,
+    answer: PropTypes.string
 }
 
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight,FlatList } from 'react-native';
 import { Alizarin } from '../styles/colors';
+import PropTypes from 'prop-types'
 
 function elapseTime(total,fx){
     let elapsed = 0
@@ -36,5 +37,9 @@ export default class Timer extends React.Component{
         const {elapse} =  this.state
         const {totalTime} = this.props;
         return <Text style={{color:Alizarin}}>{totalTime - elapse/1000}</Text>
+    }
+    static propTypes ={
+        totalTime:PropTypes.number,
+        onElapse:PropTypes.func
     }
 }

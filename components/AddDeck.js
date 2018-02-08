@@ -33,7 +33,7 @@ class AddDeck extends React.Component {
             <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
 
                 <View style={styles.AddCard}>
-                    <Text style={styles.Label}>Enter deck title</Text>
+                    <Text style={[styles.Label,{fontSize:30}]}>What is the title of your new deck?</Text>
                     <Text style={styles.SpaceGap20}></Text>
                     <TextInput style={styles.Input}
                         onChangeText={t => this.setState({ text:t })}
