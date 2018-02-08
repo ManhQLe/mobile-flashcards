@@ -74,11 +74,13 @@ class DeckView extends React.Component {
             </View>
             : <View></View>
  
+            const questionLabel = `${questions.length} card${questions.length>1?'s':''}`
+
         return (
             <View style={styles.DeckView}>
                 <View style={{ alignItems: 'center', flexGrow: 0 }}>
                     <Text style={styles.DeckViewTitle}>{deck.title}</Text>
-                    <Text style={styles.DeckViewSubTitle}>{questions.length} cards</Text>
+                    <Text style={styles.DeckViewSubTitle}>{questionLabel}</Text>
                 </View>
                 <View style={[qStyles.Row, { justifyContent: 'space-around', flexGrow: 1 }]}>
                     <TouchableHighlight style={[styles.FlatStyleButton]}
