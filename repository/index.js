@@ -3,15 +3,21 @@ import {
 } from 'react-native'
 const uuidv4 = require('uuid/v4');
 const DBNAME = 'FLASHCARD-DB'
+const REMINDERDB = ReminderCompanionDB(DBNAME)
 
-var sample = {
-    React: {
-        title: 'React',
-        questions: [{
-            question: 'ABC',
-            answer: '123'
-        }]
+/*
+    REMINDER DB SCHEMA
+    {
+        reminderHour:20,
+        reminders:{
+
+        }
     }
+*/
+
+
+function ReminderCompanionDB(dbname){
+    return `${dbname}-REMINDER`
 }
 
 function createDeck(title) {
@@ -22,8 +28,32 @@ function createDeck(title) {
 }
 
 class Repository {
-    constructor(dbName) {
+    constructor(dbName,reminderdb) {
         this.dbName = dbName;
+        this.reminderDbName = reminderdb
+    }
+
+    getRawReminder(){
+        return AsyncStorage.getItem(this.reminderDbName)
+        .then(results => results ? JSON.parse(results) : {});
+    }
+
+    getReminderByDeck(deckid){
+        this.getRawReminder()
+        .then(data=>{
+            return (data.reminders || {})[deckid]
+        })
+    }
+
+    saveReminder(deckid, reminderid){
+        this.getRawReminder()
+        .then(data=>{
+            const {reminders} = data;
+            reminders || (reminders={})
+            reminders[deckid] = reminderid;
+            data.reminders = reminders;    
+            return this.__saveData(data,this.reminderDbName)
+        })
     }
 
     clearData() {
@@ -83,12 +113,12 @@ class Repository {
         })
     }
 
-    __saveData(data) {
-        return AsyncStorage.setItem(this.dbName, JSON.stringify(data));
+    __saveData(data,name) {
+        return AsyncStorage.setItem(name || this.dbName, JSON.stringify(data));
     }
 
 }
 
-export function getRepository(dbName = DBNAME) {
-    return new Repository(dbName);
+export function getRepository(dbName = DBNAME,reminderdb = REMINDERDB) {
+    return new Repository(dbName,reminderdb);
 }

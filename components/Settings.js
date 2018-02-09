@@ -39,8 +39,8 @@ class Settings extends React.Component {
         return (
         <View style={{flex:1,alignItems:'center',justifyContent:'center' }}>
             <Picker style={{width:160}}
-                selectedValue={this.state.quizTime}
-                onValueChange={(itemValue, itemIndex) =>{this.setState({quizTime:itemValue}) } }>
+                selectedValue={this.props.remindHour}
+                onValueChange={(itemValue, itemIndex) =>{ } }>
                 {
                     Times.map(x=>{
                         const t = x==0?12:(x<=12?x:(x-12));

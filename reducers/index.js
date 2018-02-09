@@ -3,7 +3,8 @@ import {getRepository} from '../repository'
 
 const defaultState={
     repo:getRepository(),
-    decks:[]
+    decks:[],
+    remindHour:20
 }
 
 export default function reducer(state=defaultState,action){
