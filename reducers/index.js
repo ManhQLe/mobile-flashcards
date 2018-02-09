@@ -1,4 +1,4 @@
-import {ADD_DECK,ADD_QUESTION, IMPORT_DECKS} from '../actions'
+import {ADD_DECK,ADD_QUESTION, IMPORT_DECKS, CHANGE_REMINDER_HOUR} from '../actions'
 import {getRepository} from '../repository'
 
 const defaultState={
@@ -27,6 +27,10 @@ export default function reducer(state=defaultState,action){
             newState.decks = data;
             return newState;
 
+        case CHANGE_REMINDER_HOUR:
+            newState.remindHour = data
+            return newState
+            
         default:
             return state;
 

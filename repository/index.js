@@ -56,6 +56,21 @@ class Repository {
         })
     }
 
+    saveReminderHour(hour){
+        this.getRawReminder()
+        .then(data=>{
+            data.reminderHour = hour;               
+            return this.__saveData(data,this.reminderDbName)
+        })
+    }
+
+    getReminderHour(){
+        this.getRawReminder()
+        .then(data=>{
+            return data.reminderHour;            
+        })
+    }
+
     clearData() {
         return AsyncStorage.removeItem(this.dbName);
     }
