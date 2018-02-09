@@ -5,6 +5,7 @@ Below you'll find information about performing common tasks. The most recent ver
 ## Table of Contents
 
 * [Updating to New Releases](#updating-to-new-releases)
+* [Supported Platform](#supported-platforms)
 * [Available Scripts](#available-scripts)
   * [npm start](#npm-start)
   * [npm test](#npm-test)
@@ -34,6 +35,10 @@ You should only need to update the global installation of `create-react-native-a
 Updating the `react-native-scripts` dependency of your app should be as simple as bumping the version number in `package.json` and reinstalling your project's dependencies.
 
 Upgrading to a new version of React Native requires updating the `react-native`, `react`, and `expo` package versions, and setting the correct `sdkVersion` in `app.json`. See the [versioning guide](https://github.com/react-community/create-react-native-app/blob/master/VERSIONS.md) for up-to-date information about package version compatibility.
+
+## Supported Platforms
+  Nexus 5X - Android
+  iOS 7 - IPhone
 
 ## Available Scripts
 

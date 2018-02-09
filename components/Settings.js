@@ -1,10 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View,Button,Platform, Alert  } from 'react-native';
+import { StyleSheet, Text, View,Button,Platform, Alert ,Picker } from 'react-native';
 import {connect} from 'react-redux'
 
 import {importDecks} from '../actions'
 import {mapStateToProps} from './utils'
 import {Alizarin} from '../styles/colors'
+
+const Times = []
+for(i=0;i<24;i++)
+    Times.push(i)
 
 class Settings extends React.Component {    
     reset(){
@@ -32,13 +36,25 @@ class Settings extends React.Component {
     }
 
     render(){
-        return <View style={{flex:1,alignItems:'center',justifyContent:'center' }}>
+        return (
+        <View style={{flex:1,alignItems:'center',justifyContent:'center' }}>
+            <Picker style={{width:160}}
+                selectedValue={this.state.quizTime}
+                onValueChange={(itemValue, itemIndex) =>{this.setState({quizTime:itemValue}) } }>
+                {
+                    Times.map(x=>{
+                        const t = x==0?12:(x<=12?x:(x-12));
+                        return <Picker.Item label={`${t} ${x<12?"AM":"PM"}`} value={x} />
+                    })
+                }
+                   
+            </Picker>
             <Button style={{alignSelf: 'center'}}
                 onPress={this.question}
                 color={Alizarin}
                 title="Reset Repository"
             ></Button>
-        </View>
+        </View>)
     }
 }
 

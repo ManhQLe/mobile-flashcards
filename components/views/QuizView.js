@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Platform, Animated, Button, Picker, PickerIOS } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Platform, Animated, Button, Picker } from 'react-native';
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../utils';
 import styles from '../../styles/MainStyle'
@@ -197,7 +197,7 @@ class Quiz extends React.Component {
 
                 const cCard = deck.questions[qIndex]
                 const animFrontStyle = { }
-                debugger;
+   
                 isIOS && (animFrontStyle.transform =  [{ rotateY: this.interFront }])
                 !isIOS && (animFrontStyle.opacity =  this.interFront)
                
