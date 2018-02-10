@@ -81,7 +81,9 @@ class Repository {
     }
 
     clearData() {
-        return AsyncStorage.removeItem(this.dbName);
+        return Promise.all([
+            AsyncStorage.removeItem(this.reminderDbName),
+            AsyncStorage.removeItem(this.dbName)])
     }
 
     getRawData() {

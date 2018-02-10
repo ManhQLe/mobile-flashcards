@@ -4,8 +4,6 @@ import {connect} from 'react-redux'
 import MainNavigator from './MainNavigator'
 import { mapStateToProps } from './utils';
 import {importDecks, changeRemindHour} from '../actions'
-import {Notifications,Permissions} from 'expo'
-
 
 class Entry extends React.Component {
     constructor(props){

@@ -2,6 +2,7 @@ import React from 'react';
 import { Keyboard, Text, View, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux'
 
+import {Notifications} from 'expo'
 import {addQuestion,importDecks} from '../actions'
 import { mapStateToProps, getDeckById } from './utils'
 import styles from '../styles/MainStyle'
@@ -33,8 +34,41 @@ class AddCard extends React.Component {
             Keyboard.dismiss();
             this.setState({question:"",answer:""})        
             dispatch(importDecks([...decks]))
-        })
 
+            repo.getReminderByDeck(deckid)
+            .then(x=>{                
+                //Create reminder if there is not an existing
+                !x &&this.createReminder(deck) 
+            })
+        })    
+    }
+
+    createReminder(deck){
+        const {repo,remindHour} = this.props
+        let tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate()+1)
+        tomorrow.setHours(remindHour)
+        tomorrow.setMinutes(0)
+
+        Notifications.scheduleLocalNotificationAsync({
+            title:"Reminder from mobile-flashcard",
+            body:`Dont forget to study for ${deck.title}`,
+            ios:{
+                sound:true
+            },
+            android:{
+                sound:true,
+                priority:'high',
+                sticky:false,
+                vibrate:true
+            }
+        },{
+            time:tomorrow,
+            repeat:'day'
+        })
+        .then(rid=>{
+            repo.saveReminder(deckid,rid)
+        })
     }
 
     render() {

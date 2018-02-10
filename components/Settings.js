@@ -22,11 +22,12 @@ class Settings extends React.Component {
     
     reset(){
         const {dispatch, repo,navigation} = this.props;
+        Notifications.cancelAllScheduledNotificationsAsync();
         repo.clearData()
         .then(()=>{
             dispatch(importDecks([]))
             navigation.navigate("AllDecks")
-        })
+        })        
     }
 
     question =()=>{        
