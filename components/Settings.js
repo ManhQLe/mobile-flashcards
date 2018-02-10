@@ -75,7 +75,7 @@ class Settings extends React.Component {
         return (
         <View style={{flex:1,alignItems:'center',justifyContent:'center' }}> 
             {
-                !allowedNotification && <Text>Please allow notification for your daily reminder :)</Text>
+                !allowedNotification && <Text style={{color:Alizarin}}>Please allow notification for your daily reminder :)</Text>
             }           
             <Text>Reminder time:</Text>
             <Picker style={{width:160}}

@@ -45,6 +45,15 @@ class Repository {
         })
     }
 
+    removeReminder(deckid){
+        return this.getRawReminder()
+        .then(data=>{
+            const reminders = (data.reminders || {})
+            delete reminders[deckid]
+            return this.__saveData(data,this.reminderDbName);
+        })
+    }
+
     saveReminder(deckid, reminderid){
         return this.getRawReminder()
         .then(data=>{
