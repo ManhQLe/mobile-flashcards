@@ -28,6 +28,7 @@ export default function reducer(state=defaultState,action){
             return newState;
 
         case CHANGE_REMINDER_HOUR:
+            newState = Object.assign({},state);
             newState.remindHour = data
             return newState
             

@@ -39,16 +39,16 @@ class Repository {
     }
 
     getReminderByDeck(deckid){
-        this.getRawReminder()
-        .then(data=>{
+        return this.getRawReminder()
+        .then(data=>{            
             return (data.reminders || {})[deckid]
         })
     }
 
     saveReminder(deckid, reminderid){
-        this.getRawReminder()
+        return this.getRawReminder()
         .then(data=>{
-            const {reminders} = data;
+            let {reminders} = data;
             reminders || (reminders={})
             reminders[deckid] = reminderid;
             data.reminders = reminders;    
@@ -57,7 +57,7 @@ class Repository {
     }
 
     saveReminderHour(hour){
-        this.getRawReminder()
+        return this.getRawReminder()
         .then(data=>{
             data.reminderHour = hour;               
             return this.__saveData(data,this.reminderDbName)
@@ -65,9 +65,9 @@ class Repository {
     }
 
     getReminderHour(){
-        this.getRawReminder()
+        return this.getRawReminder()
         .then(data=>{
-            return data.reminderHour;            
+            return data.reminderHour;
         })
     }
 

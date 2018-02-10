@@ -1,9 +1,11 @@
 import React from 'react';
-import {Text} from 'react-native'
+import {Text, Alert} from 'react-native'
 import {connect} from 'react-redux'
 import MainNavigator from './MainNavigator'
 import { mapStateToProps } from './utils';
-import {importDecks} from '../actions'
+import {importDecks, changeRemindHour} from '../actions'
+import {Notifications,Permissions} from 'expo'
+
 
 class Entry extends React.Component {
     constructor(props){
@@ -13,15 +15,18 @@ class Entry extends React.Component {
         }
     }
 
-
     componentDidMount(){
         const {decks,repo,dispatch} = this.props;
         if(decks.length == 0)
         {
-            repo.getDecks()
-            .then(data=>{
+            Promise.all([repo.getReminderHour(),repo.getDecks()])
+            .then(([hour,data])=>{               
                 dispatch(importDecks(data))
-                this.setState({loadStatus:1})
+                hour!==null && hour!== undefined && dispatch(changeRemindHour(hour))
+                this.setState({loadStatus:1})                
+            })
+            .catch(ex=>{
+                console.log(ex);
             })
         }
         else
