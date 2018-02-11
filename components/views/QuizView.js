@@ -16,6 +16,9 @@ const COLOR_COL = [Alizarin, Turquoise, PeterRiver, Amethyst]
 const isIOS = Platform.OS === 'ios' 
 const platformColor = isIOS ? PeterRiver : Turquoise
 
+
+// Reference some idea of how to flip card from https://codedaily.io/screencasts/12/Create-a-Flip-Card-Animation-with-React-Native
+
 const style = StyleSheet.create({
     TextHeader: {
         fontSize: 30
