@@ -16,13 +16,14 @@ class AddDeck extends React.Component {
 
     createDeck=()=>{
         const {text} = this.state;
-        const {repo,dispatch,navigation} = this.props
+        const {repo,dispatch} = this.props
+        const {mainNavigation} = this.props.screenProps;
         repo.createDeck(text)
         .then((deck)=>{
             dispatch(addDeck(deck))
             Keyboard.dismiss();
-            this.setState({text:""})            
-            navigation.navigate("AllDecks")
+            this.setState({text:""})         
+            mainNavigation.navigate('SingleDeck',{deck})
         })
     }
 
