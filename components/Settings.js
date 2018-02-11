@@ -5,7 +5,7 @@ import {changeRemindHour} from '../actions'
 import {importDecks} from '../actions'
 import {mapStateToProps} from './utils'
 import {Alizarin} from '../styles/colors'
-import {Permissions} from 'expo'
+import {Permissions,Notifications} from 'expo'
 
 const Times = []
 for(i=0;i<24;i++)
@@ -27,6 +27,7 @@ class Settings extends React.Component {
         .then(()=>{
             dispatch(importDecks([]))
             navigation.navigate("AllDecks")
+            this.setState({hour:null})
         })        
     }
 

@@ -132,8 +132,9 @@ class Quiz extends React.Component {
     }
 
     answerPicked = (a) => {
+
         clearTimeout(this.timer)
-        const { navigation } = this.props;
+        const { navigation,repo } = this.props;
         const { deck } = navigation.state.params;
         let { qIndex, correctAnswer, stage } = this.state;
         const cCard = deck.questions[qIndex]
@@ -145,6 +146,8 @@ class Quiz extends React.Component {
             correctAnswer,
             stage
         })
+
+        repo.removeReminder(deck.id)
     }
 
     retakeQuiz = () => {

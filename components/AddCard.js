@@ -35,7 +35,7 @@ class AddCard extends React.Component {
             this.setState({question:"",answer:""})        
             dispatch(importDecks([...decks]))
 
-            repo.getReminderByDeck(deckid)
+            repo.getReminderByDeck(deck)
             .then(x=>{                
                 //Create reminder if there is not an existing
                 !x &&this.createReminder(deck) 
@@ -67,7 +67,10 @@ class AddCard extends React.Component {
             repeat:'day'
         })
         .then(rid=>{
-            repo.saveReminder(deckid,rid)
+            repo.saveReminder(deck.id,rid)
+        })
+        .catch(ex=>{
+            console.log(ex);
         })
     }
 
